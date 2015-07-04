@@ -1,4 +1,5 @@
 var persona ={
   'nombre': 'migue',
-  'apellido': 'cabrera'
+  'apellido': 'cabrera',
+  'edad': 31
 };
