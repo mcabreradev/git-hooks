@@ -1,11 +1,7 @@
 var persona ={
   'nombre': 'migue',
   'apellido': 'cabrera',
-<<<<<<< HEAD
-  'edad': 31
-=======
   'edad': 31,
   'peso': 100,
-  'altura': 178
->>>>>>> e4de2040bf0a5c7fa926e6e91dda8472b18e47bc
+  'altura': 175
 };
