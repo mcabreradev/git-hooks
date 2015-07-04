@@ -1,0 +1,27 @@
+#!/bin/bash
+# Prevenir pushear a master y otras branches
+# NOTA: recordar cambiar permisos -> sudo chmod +x pre-push
+
+BRANCH=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+FORBIDDEN_BRANCHES="^(master)$"
+PROTECTED_BRANCHES="^(dev|prod.{2}|sprint.{2})$"
+FORCE_PUSH="force|delete|-f"
+PUSH_COMMAND=`ps -ocommand= -p $PPID`
+
+if [[ $BRANCH =~ $FORBIDDEN_BRANCHES ]] || [[ $BRANCH =~ $FORBIDDEN_BRANCHES && $PUSH_COMMAND =~ $FORCE_PUSH ]]; then
+  echo "$(tput setaf 1)Prevented force-push to $BRANCH.This is a very dangerous command."
+  echo "If you really want to do this, use --no-verify to bypass this pre-push hook."
+  exit 1
+fi
+
+if [[ $BRANCH =~ $PROTECTED_BRANCHES ]]; then
+    read -p "You're about to push $(tput setaf 1)$(tput bold)$BRANCH$(tput sgr0) is that what you intended? [y|n] " -n 1 -r < /dev/tty
+    echo
+    if echo $REPLY | grep -E '^[Yy]$' > /dev/null
+    then
+        exit 0 # ejecuta el PUSH
+    fi
+    exit 1 # niega el PUSH
+else
+    exit 0 # ejecuta el PUSH
+fi
