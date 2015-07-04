@@ -3,5 +3,5 @@ var persona ={
   'apellido': 'cabrera',
   'edad': 31,
   'peso': 100,
-  'altura': 183
+  'altura': 178
 };
